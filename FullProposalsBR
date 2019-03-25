@@ -63,7 +63,7 @@ BankingData.BranchNumber,
 BankingData.AccountNumber,
 BankingAccountType,
 IncomeProof,
---HasVehicleData,
+HasVehicleData,
 SUBSTR(VehicleYear,0,4) AS VehicleData_Year,
 VehicleData.Value AS VehicleData_Value,
 VehicleData.IsFinanced AS VehicleData_IsFinanced, 
@@ -78,12 +78,12 @@ Webpush,
 CurrentSalesState,
 CurrentApprovalState,
 CurrentDocumentationState,
-CreditScore
---MatchScore_CBSS,
---MatchScore_Losango,
---MatchScore_Portocred,
---MatchScore_Simplic,
---MatchScore_Generic,
+CreditScore,
+MatchScoreComplete.cbss.ScoreValue AS MatchScore_CBSS,
+MatchScoreComplete.losango.ScoreValue AS MatchScore_Losango,
+MatchScore.portocred.ScoreValue AS MatchScore_Portocred,
+MatchScore.Simplic.ScoreValue AS MatchScore_Simplic,
+MatchScoreComplete.Generic.ScoreValue AS MatchScore_Generic
 --ScoreValue_CBSS,
 --ScoreValue_Geru,
 --ScoreValue_Marisa,
@@ -104,6 +104,7 @@ FROM
   CONCAT(f.HomePhone.AreaCode,'-',f.HomePhone.Number) AS HomePhone2,
   f.HomeAddress.Location.coordinates as LatLong,
   CAST(VehicleData.CreateDate AS STRING) AS VehicleYear,
+  IF(VehicleData.CreateDate IS NOT NULL, true, false) AS HasVehicleData,  
   IF(opt.CPF IS NOT NULL, true, false) AS Optin,
   IF(web.CPF IS NOT NULL, true, false) AS WebPush,
   IF(ParentProposalId IS NULL, true, false) AS ParentProposal,
@@ -127,5 +128,5 @@ FROM
   LEFT JOIN `bom-pra-credito.datamart.OptIns` opt ON f.CPF = opt.CPF
   LEFT JOIN `bom-pra-credito.datamart.WebPushRegistrations` web ON f.CPF = web.CPF
   LEFT JOIN `bom-pra-credito.datamart.IntegrationFlows` int ON f._metadata_doc_id = int.FullProposalId
-  ) AS FP LIMIT 100
+  ) AS FP
  
