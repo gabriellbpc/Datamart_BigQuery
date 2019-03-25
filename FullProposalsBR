@@ -52,7 +52,7 @@ HomeAddress.Number AS HomeAddress_Number,
 HomeAddress.AdditionalData AS HomeAddress_AdditionalData,
 HomeAddress.CEP AS HomeAddress_CEP,
 --HomeType - VERIFICAR DANIEL condicao ja que no tempborrewers as linhas somem, (usarei e verifico) tentando achar a chave join
-LatLong, REGEXP_EXTRACT(LatLong,'([0-9]|-.+?),') as Lat, REGEXP_EXTRACT(LatLong,',(.+?)]') as Long,
+REGEXP_EXTRACT(LatLong,'([0-9]|-.+?),') as Lat, REGEXP_EXTRACT(LatLong,',(.+?)]') as Long,
 Email,
 MobilePhone2 AS MobilePhone,
 HomePhone2 AS HomePhone,
