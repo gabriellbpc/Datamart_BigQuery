@@ -78,7 +78,7 @@ Webpush,
 CurrentSalesState,
 CurrentApprovalState,
 CurrentDocumentationState,
-CreditScore,
+CreditScore.bvs.ScoreValue AS CreditScore_BV,
 MatchScoreComplete.cbss.ScoreValue AS MatchScore_CBSS,
 MatchScoreComplete.losango.ScoreValue AS MatchScore_Losango,
 MatchScore.portocred.ScoreValue AS MatchScore_Portocred,
@@ -128,5 +128,5 @@ FROM
   LEFT JOIN `bom-pra-credito.datamart.OptIns` opt ON f.CPF = opt.CPF
   LEFT JOIN `bom-pra-credito.datamart.WebPushRegistrations` web ON f.CPF = web.CPF
   LEFT JOIN `bom-pra-credito.datamart.IntegrationFlows` int ON f._metadata_doc_id = int.FullProposalId
-  ) AS FP
+  ) AS FP 
  
